@@ -20,28 +20,29 @@ public class EchoClient {
 			)
 		{
 			String input;
-			String output;
-			while (!(input = line.readLine()).equalsIgnoreCase("quit"))
+			String output ="";
+			while (!(input = line.readLine()).equalsIgnoreCase("quit") && (!output.equals("null")))
 			{
 				pw.println(input);
 				pw.flush();
 				output =br.readLine();
+				if (output == null)
+				{
+					System.out.println("Gegenstelle hat die Verbindung beendet");
+				}
+				else 
+				{
 				System.out.println(output);
+				}
 			}
-			
 		} 
 		catch (UnknownHostException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
 	}
-
 }

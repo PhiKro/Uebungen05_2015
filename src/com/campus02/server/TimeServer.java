@@ -36,7 +36,7 @@ public class TimeServer {
 				pw.println(now);
 				pw.println(counter);
 				if (counter == 10)
-					pw.println("Letzte übertragung");
+					{pw.println("Letzte übertragung");}
 				pw.flush();
 				pw.close();
 				client.close();
