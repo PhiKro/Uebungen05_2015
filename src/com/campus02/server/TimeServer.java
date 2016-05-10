@@ -10,48 +10,48 @@ import java.time.LocalDateTime;
 
 public class TimeServer {
 	
-	ServerSocket my;
+	ServerSocket ssock;
 	
 	public TimeServer() throws IOException
 	{
-		ServerSocket my = new ServerSocket(8045);
-		System.out.println("Server Running!");	
+		ssock = new ServerSocket(1111);
+		System.out.println("Server Created");	
 	}
 	
 	public ServerSocket getMy() {
-		return my;
+		return ssock;
 	}
 
-
-
-	public void setMy(ServerSocket my) {
-		this.my = my;
-	}
-
-
-
-	public void time (ServerSocket my) throws IOException
+	public void time (ServerSocket my) 
 	{
-
-		System.out.println("loop");
-		while (true)
-		{
-			Socket client = null;
-		try		
+		System.out.println("Server gestartet");
+		try {
+		Socket client = null;
+		int counter = 1;
+		while (counter <=10)
 			{
-				client = my.accept();
+				client = ssock.accept();
 				PrintWriter pw = new PrintWriter(new BufferedOutputStream(client.getOutputStream()));
 				LocalDateTime now = LocalDateTime.now();
 				pw.println(now);
+				pw.println(counter);
+				if (counter == 10)
+					pw.println("Letzte übertragung");
 				pw.flush();
 				pw.close();
 				client.close();
+				counter++;
 			}
-		finally
+		System.out.println("10 Verbindungen erreicht Programm wird beendet.");
+		} 
+		catch (IOException e) 
 		{
+			e.printStackTrace();
 		}
+		finally 
+		{
+			System.out.println("Server gestoppt, bitte Prüfen");
 		}
-		
 	}
 
 	public static void main(String[] Args) throws IOException
