@@ -29,6 +29,7 @@ public class EchoClient {
 				if (output == null)
 				{
 					System.out.println("Gegenstelle hat die Verbindung beendet");
+					System.exit(0);
 				}
 				else 
 				{

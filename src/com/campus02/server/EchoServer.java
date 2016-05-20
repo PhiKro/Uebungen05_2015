@@ -12,20 +12,20 @@ public class EchoServer {
 	
 	public static void main (String Args[])
 	{
-		try (ServerSocket ssocket = new ServerSocket(2222);
-					)
+		try (ServerSocket ssocket = new ServerSocket(2222))
 		{
-			Socket client = null;
-			int count =1;
-			
 			while (true) 
 			{
-				count =1;
-				client = ssocket.accept();
+				int count= 0;
+				try 
+				(
+				Socket client = ssocket.accept();
 				BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream())); 
 				PrintWriter pw = new PrintWriter(new BufferedOutputStream(client.getOutputStream()));
+				)
+				{
 				String echo;
-				while ((echo = br.readLine()) !=null && count <= 3)
+				while ((echo = br.readLine()) !=null && ++count < 3)
 				{
 					if (echo.equalsIgnoreCase("Hallo Echo"))
 					{
@@ -34,19 +34,18 @@ public class EchoServer {
 					else 
 						{pw.println(echo);}
 					pw.flush();
-					count++;
+					
 				}
-				pw.close();
 				System.out.println("connection closed");
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		}
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		finally
 		{
-		}
-		
+		}	
 	}
-
 }
