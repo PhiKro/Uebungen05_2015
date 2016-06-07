@@ -12,9 +12,9 @@ public class PingPongClient {
 
 	public static void main(String[] args) 
 	{
-		try (Socket client = new Socket("127.0.0.1",3333);
-				PrintWriter pw = new PrintWriter(new BufferedOutputStream(client.getOutputStream()));
-				BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+		try (Socket toserver = new Socket("127.0.0.1",3333);
+				PrintWriter pw = new PrintWriter(new BufferedOutputStream(toserver.getOutputStream()));
+				BufferedReader br = new BufferedReader(new InputStreamReader(toserver.getInputStream()));
 				BufferedReader line = new BufferedReader(new InputStreamReader(System.in))
 				)
 		{
@@ -27,9 +27,13 @@ public class PingPongClient {
 			output = br.readLine();
 			System.out.println(output);
 			}
-		} catch (UnknownHostException e) {
+		} 
+		catch (UnknownHostException e) 
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		
